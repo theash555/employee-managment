@@ -1,0 +1,168 @@
+#include <iostream>
+using namespace std;
+class Employee
+{
+    private:
+    int id;
+    string name;
+    string position;
+    float salary;
+    public:
+    Employee() : id(0), name(""), position(""), salary(0.0) {}
+    void inputEmployeeData() 
+    {
+        cout << "Enter Employee ID: ";
+        cin >> id;
+        cout << "Enter Employee Name: ";
+        cin>>name;
+        cout << "Enter Employee Position: ";
+        cin>>position;
+        cout << "Enter Employee Salary: ";
+        cin >> salary;
+    }
+     void displayEmployeeData() {
+        cout << "Employee ID: " << id << endl;
+        cout << "Employee Name: " << name << endl;
+        cout << "Employee Position: " << position << endl;
+        cout << "Employee Salary: " << salary << endl;
+    }
+    void updateSalary() 
+    {
+        cout << "Enter new salary for " << name << ": ";
+        cin >> salary;
+    }
+    int getId() const 
+    {
+        return id;
+    }
+
+    string getName() const 
+    {
+        return name;
+    }
+
+    string getPosition() const 
+    {
+        return position;
+    }
+
+    double getSalary() const 
+    {
+        return salary;
+    }
+};
+
+class Employee_Manager:public Employee
+{   
+    private:
+    Employee employees[100]; 
+    int employeeCount;
+    public:
+    Employee_Manager() : employeeCount(0) {}
+    void addEmployee() 
+    {
+        if (employeeCount < 100) 
+        {
+            employees[employeeCount].inputEmployeeData();
+            employeeCount++;
+        }
+        else
+        {
+            cout << "Employee limit reached!" << endl;
+        }
+    }
+    void displayAllEmployees() 
+    {
+        if (employeeCount == 0) 
+        {
+            cout << "No employees to display!" << endl;
+            return;
+        }
+        for (int i = 0; i < employeeCount; i++) 
+        {
+            cout << "\nEmployee " << (i + 1) << " Details:" << endl;
+            employees[i].displayEmployeeData();
+            cout << endl;
+        }
+    }
+    void updateEmployeeSalary(int employeeId) 
+    {
+        bool found = false;
+        for (int i = 0; i < employeeCount; i++) 
+        {
+            if (employees[i].getId() == employeeId) 
+            {
+                employees[i].updateSalary();
+                found = true;
+                break;
+            }
+        }
+        if (!found) 
+        {
+            cout << "Employee with ID " << employeeId << " not found!" << endl;
+        }
+    }
+    void searchEmployeeById(int employeeId) 
+    {
+        bool found = false;
+        for (int i = 0; i < employeeCount; i++) 
+        {
+            if (employees[i].getId() == employeeId) 
+            {
+                cout << "\nEmployee Details:" << endl;
+                employees[i].displayEmployeeData();
+                found = true;
+                break;
+            }
+        }
+        if (!found) 
+        {
+            cout << "Employee with ID " << employeeId << " not found!" << endl;
+        }
+    }
+};
+int main() 
+{
+    Employee_Manager system;
+    int choice;
+    int employeeId;
+
+    do {
+        cout << "\nEmployee Management System Menu:" << endl;
+        cout << "1. Add Employee" << endl;
+        cout << "2. Display All Employees" << endl;
+        cout << "3. Search Employee by ID" << endl;
+        cout << "4. Update Employee Salary" << endl;
+        cout << "5. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            system.addEmployee();
+            break;
+        case 2:
+            system.displayAllEmployees();
+            break;
+        case 3:
+            cout << "Enter Employee ID to search: ";
+            cin >> employeeId;
+            system.searchEmployeeById(employeeId);
+            break;
+        case 4:
+            cout << "Enter Employee ID to update salary: ";
+            cin >> employeeId;
+            system.updateEmployeeSalary(employeeId);
+            break;
+        case 5:
+            cout << "Exiting the system..." << endl;
+            break;
+        default:
+            cout << "Invalid choice! Please try again." << endl;
+        }
+    } 
+    while (choice != 5);
+
+    return 0;
+}
