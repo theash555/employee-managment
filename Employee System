@@ -1,15 +1,15 @@
-#include <iostream>
+`#include <iostream>
 using namespace std;
-class Employee
+class Employee       //basic building block, user define
 {
-    private:
+    private:        //data member
     int id;
     string name;
     string position;
     float salary;
-    public:
-    Employee() : id(0), name(""), position(""), salary(0.0) {}
-    void inputEmployeeData() 
+    public:         
+    Employee() : id(0), name(""), position(""), salary(0.0) {}   //constructor always called in a public condition
+    void inputEmployeeData()       //member function
     {
         cout << "Enter Employee ID: ";
         cin >> id;
@@ -20,8 +20,9 @@ class Employee
         cout << "Enter Employee Salary: ";
         cin >> salary;
     }
-     void displayEmployeeData() {
-        cout << "Employee ID: " << id << endl;
+     void displayEmployeeData() 
+    {
+cout << "Employee ID: " << id << endl;
         cout << "Employee Name: " << name << endl;
         cout << "Employee Position: " << position << endl;
         cout << "Employee Salary: " << salary << endl;
@@ -31,7 +32,7 @@ class Employee
         cout << "Enter new salary for " << name << ": ";
         cin >> salary;
     }
-    int getId() const 
+    int getId() const     //member function
     {
         return id;
     }
@@ -52,18 +53,18 @@ class Employee
     }
 };
 
-class Employee_Manager:public Employee
+class Employee_Manager:public Employee    //class which is inherited with employee class publically
 {   
     private:
-    Employee employees[100]; 
+    Employee employees[100];     //array
     int employeeCount;
     public:
-    Employee_Manager() : employeeCount(0) {}
+    Employee_Manager() : employeeCount(0) {}     //constructor:array
     void addEmployee() 
     {
         if (employeeCount < 100) 
         {
-            employees[employeeCount].inputEmployeeData();
+            employees[employeeCount].inputEmployeeData();     //array,member function
             employeeCount++;
         }
         else
@@ -81,13 +82,13 @@ class Employee_Manager:public Employee
         for (int i = 0; i < employeeCount; i++) 
         {
             cout << "\nEmployee " << (i + 1) << " Details:" << endl;
-            employees[i].displayEmployeeData();
+            employees[i].displayEmployeeData();    //array,function
             cout << endl;
         }
     }
     void updateEmployeeSalary(int employeeId) 
     {
-        bool found = false;
+        bool found = false;    //data member
         for (int i = 0; i < employeeCount; i++) 
         {
             if (employees[i].getId() == employeeId) 
@@ -123,7 +124,7 @@ class Employee_Manager:public Employee
 };
 int main() 
 {
-    Employee_Manager system;
+    Employee_Manager system;    ///class,object
     int choice;
     int employeeId;
 
